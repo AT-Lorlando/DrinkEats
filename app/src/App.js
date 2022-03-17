@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './App.css';
 import Cart from './components/cart.js';
 import Soup, {soup} from './components/soup.js';
@@ -14,7 +15,6 @@ new soup('Soupe au poisson', Soups)
 new soup('Soupe aux légumes', Soups)
 new soup('Soupe aux tomates', Soups)
 
-
 function App() {
   
   const [cart, setCart] = useState([])
@@ -24,25 +24,37 @@ function App() {
   const addToCart = (soup, quantity) => {
     quantity = quantity ? quantity:1;
     soup = Soups[soup-1]
-    console.log('Adding', quantity ? quantity:1, soup.name, 'in cart');
+    // console.log('Adding', quantity ? quantity:1, soup.name, 'in cart');
 
-    if (cart.find(item => item.soup == soup.id)) {
-      const index = cart.findIndex(item => item.soup == soup.id);
+    if (cart.find(item => item.id == soup.id)) {
+      const index = cart.findIndex(item => item.id == soup.id);
       cart[index].quantity += quantity;
       setCart([...cart]);
     }
     else {
-      cart.push({soup: soup.id, quantity: quantity});
+      cart.push({id: soup.id, name: soup.name, quantity: quantity, price: soup.price});
       setCart(cart)
     }
-    console.log(cart)
-    let total = 0;
-    cart.forEach(item => {
-    total += item.quantity
-    })
-    setTotalQuantity(total)
-    console.log(total)
+    // console.log(cart)
+    setTotalQuantity(totalQuantity + quantity)
     setTotalPrice(totalPrice + quantity*soup.price)
+  }
+
+  const removeFromCart = (soup) => {
+    // console.log('Removing', soup, 'from cart');
+    const index = cart.findIndex(item => item.id == soup.id);
+    let q = cart[index].quantity;
+    let p = cart[index].price;
+    cart.splice(index, 1);
+    setCart([...cart]);
+    setTotalQuantity(totalQuantity - q)
+    setTotalPrice(totalPrice - p*q)
+  }
+
+  const resetCart = () => {
+    setCart([])
+    setTotalQuantity(0)
+    setTotalPrice(0)
   }
 
   return (
@@ -68,7 +80,7 @@ function App() {
           ))}
         </div>
       </div>
-      <Cart quantity={totalQuantity} price={totalPrice}/>
+      <Cart cart={cart} quantity={totalQuantity} price={totalPrice} resetCart={resetCart} removeFromCart={removeFromCart}/>
     </div>
   );
 }

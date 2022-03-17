@@ -8,7 +8,6 @@ export class soup {
       this.id = tab.indexOf(this)+1;
       this.ingredients = "Tomates,Boeuf,Poulet,Citron";
       this.price = Math.floor(Math.random() * (3) + 8) - 0.01;
-      console.log(this)
     }
 }
 
