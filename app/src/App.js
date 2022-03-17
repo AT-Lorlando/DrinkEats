@@ -1,27 +1,50 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-import Soup from './components/soup.js';
+import Cart from './components/cart.js';
+import Soup, {soup} from './components/soup.js';
 
 const Soups = []
-class soup {
-    constructor(name) {
-      this.name = name;
-      Soups.push(this);
-      this.id = Soups.indexOf(this)+1;
-      this.ingredients = "Tomates,Boeuf,Poulet,Citron";
-    }
-}
 
-new soup('Soupe au chou') 
-new soup('Soupe Miso') 
-new soup('Soupe champignon')
-new soup('Soupe au poivron')
-new soup('Soupe au poulet')
-new soup('Soupe au poisson')
-new soup('Soupe aux légumes')
-new soup('Soupe aux tomates')
+new soup('Soupe au chou', Soups) 
+new soup('Soupe Miso', Soups) 
+new soup('Soupe champignon', Soups)
+new soup('Soupe au poivron', Soups)
+new soup('Soupe au poulet', Soups)
+new soup('Soupe au poisson', Soups)
+new soup('Soupe aux légumes', Soups)
+new soup('Soupe aux tomates', Soups)
+
 
 function App() {
+  
+  const [cart, setCart] = useState([])
+  const [totalQuantity, setTotalQuantity] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  const addToCart = (soup, quantity) => {
+    quantity = quantity ? quantity:1;
+    soup = Soups[soup-1]
+    console.log('Adding', quantity ? quantity:1, soup.name, 'in cart');
+
+    if (cart.find(item => item.soup == soup.id)) {
+      const index = cart.findIndex(item => item.soup == soup.id);
+      cart[index].quantity += quantity;
+      setCart([...cart]);
+    }
+    else {
+      cart.push({soup: soup.id, quantity: quantity});
+      setCart(cart)
+    }
+    console.log(cart)
+    let total = 0;
+    cart.forEach(item => {
+    total += item.quantity
+    })
+    setTotalQuantity(total)
+    console.log(total)
+    setTotalPrice(totalPrice + quantity*soup.price)
+  }
+
   return (
     <div className="bg-black h-screen w-screen overflow-hidden">
       <header className="flex flex-row h-20 bg-pink text-white justify-between px-8 py-4 border-b-2 border-white">
@@ -41,10 +64,11 @@ function App() {
       <div className="h-full">
         <div className="grid grid-cols-3 grid-flow-row gap-4 h-full bg-green px-16 pt-8 pb-32 overflow-auto">
           {Soups.map(s => (
-            <Soup name={s.name} id={s.id} ingredients={s.ingredients} key={s.id}/>
+            <Soup soup={s} key={s.id} addToCart={addToCart}/>
           ))}
         </div>
       </div>
+      <Cart quantity={totalQuantity} price={totalPrice}/>
     </div>
   );
 }
