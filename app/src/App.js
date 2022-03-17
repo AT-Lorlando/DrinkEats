@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { createPortal } from 'react-dom';
-import './App.css';
 import Cart from './components/cart.js';
 import Soup, {soup} from './components/soup.js';
+import Command from './components/command.js';
 
 const Soups = []
 
@@ -20,6 +19,8 @@ function App() {
   const [cart, setCart] = useState([])
   const [totalQuantity, setTotalQuantity] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
+
+  const [flagCommand, setFlagCommand] = useState(false)
 
   const addToCart = (soup, quantity) => {
     quantity = quantity ? quantity:1;
@@ -80,7 +81,8 @@ function App() {
           ))}
         </div>
       </div>
-      <Cart cart={cart} quantity={totalQuantity} price={totalPrice} resetCart={resetCart} removeFromCart={removeFromCart}/>
+      <Cart cart={cart} quantity={totalQuantity} price={totalPrice} showCommand={() => {if (totalQuantity > 0) {setFlagCommand(true)}}} resetCart={resetCart} removeFromCart={removeFromCart}/>
+      {flagCommand && <Command cart={cart} quantity={totalQuantity} price={totalPrice} cancelCommand={() => {setFlagCommand(false)}}/>}
     </div>
   );
 }

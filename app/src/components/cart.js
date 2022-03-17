@@ -20,7 +20,7 @@ function Cart(props) {
                 <button className="border-2 border-gray-100 hover:border-gray-400 text-white font-bold py-2 px-4 rounded" onClick={props.resetCart}>
                     Vider
                 </button>
-                <button className="bg-blue border-2 border-blue hover:border-white text-white font-bold py-2 px-4 rounded">
+                <button className="bg-blue border-2 border-blue hover:border-white text-white font-bold py-2 px-4 rounded" onClick={props.showCommand}>
                     Commander
                 </button>
             </div>
