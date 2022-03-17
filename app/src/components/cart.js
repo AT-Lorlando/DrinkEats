@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 function Cart(props) {
     return (
         <div className="absolute bottom-0 right-0 mb-4 mr-4 h-auto w-80 bg-pink rounded-md flex flex-col justify-around items-center py-2">
-            <h1 className="text-3xl text-blue border-b-2 border-gray-200 w-full text-center pb-2">Votre panier</h1>
+            <h1 className="text-3xl text-gray-700 border-b-2 border-gray-200 w-full text-center pb-2">Votre panier</h1>
             {props.quantity == 0 && <h2 className="text-lg">Vous n'avez aucune soupe.</h2>}
             {props.quantity > 0 && <h2 className="text-lg">Vous avez {props.quantity} soupe pour {props.price.toLocaleString('fr-FR', {style: 'currency', currency: 'EUR'})}</h2>}
             <div className="flex flex-col items-center pb-2 pl-8 w-full space-y-1">
@@ -20,7 +20,7 @@ function Cart(props) {
                 <button className="border-2 border-gray-100 hover:border-gray-400 text-white font-bold py-2 px-4 rounded" onClick={props.resetCart}>
                     Vider
                 </button>
-                <button className="bg-blue border-2 border-blue hover:border-white text-white font-bold py-2 px-4 rounded" onClick={props.showCommand}>
+                <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={props.showCommand}>
                     Commander
                 </button>
             </div>

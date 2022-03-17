@@ -62,8 +62,8 @@ function Soup(props) {
     return (
         <div className="rounded-xl border-2 border-white px-4 pt-2 flex flex-col justify-around bg-black bg-opacity-5">
             <div className="w-full flex flex-row justify-between px-2">
-            <h1 className="text-3xl text-blue">{soup.name}</h1>
-            <h1 className="text-3xl text-blue">{soup.price.toLocaleString('fr-FR', {style: 'currency', currency: 'EUR'})}</h1>
+            <h1 className="text-3xl text-gray-700">{soup.name}</h1>
+            <h1 className="text-3xl text-gray-700">{soup.price.toLocaleString('fr-FR', {style: 'currency', currency: 'EUR'})}</h1>
             </div>
 
             <div className="flex flex-row">
@@ -88,7 +88,7 @@ function Soup(props) {
                     placeholder={1}
                 />
 
-                <button className="border-2 border-transparent hover:border-white px-2 rounded-md" onClick={handleAdd}>
+                <button className="border-2 border-pink hover:border-white px-2 rounded-md" onClick={handleAdd}>
                     Ajouter
                 </button>
                 </div>

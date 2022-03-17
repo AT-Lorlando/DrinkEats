@@ -50,6 +50,9 @@ function App() {
     setCart([...cart]);
     setTotalQuantity(totalQuantity - q)
     setTotalPrice(totalPrice - p*q)
+    if (totalPrice - p*q == 0) {
+      setFlagCommand(false)
+    }
   }
 
   const resetCart = () => {
@@ -65,7 +68,7 @@ function App() {
           DrinkEats
         </h1>
         <div className="flex flex-row space-x-4"> 
-          <button className="bg-blue border-2 border-blue hover:border-white text-white font-bold py-2 px-4 rounded">
+          <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded">
             Log in
           </button>
           <button className="border-2 border-transparent hover:border-green text-white font-bold py-2 px-4 rounded">
@@ -82,7 +85,14 @@ function App() {
         </div>
       </div>
       <Cart cart={cart} quantity={totalQuantity} price={totalPrice} showCommand={() => {if (totalQuantity > 0) {setFlagCommand(true)}}} resetCart={resetCart} removeFromCart={removeFromCart}/>
-      {flagCommand && <Command cart={cart} quantity={totalQuantity} price={totalPrice} cancelCommand={() => {setFlagCommand(false)}}/>}
+      {flagCommand && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
+        <Command 
+        cart={cart} 
+        quantity={totalQuantity} 
+        price={totalPrice} 
+        cancelCommand={() => {setFlagCommand(false)}}
+        removeFromCart={removeFromCart}/>
+        </div>}
     </div>
   );
 }

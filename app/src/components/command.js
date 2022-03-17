@@ -2,8 +2,8 @@ import React from 'react'
 
 function Command(props) {
     return (
-        <div className="absolute top-40 left-1/3 h-auto w-1/3 bg-pink rounded-md flex flex-col justify-between items-center py-2">
-            <h1 className="text-3xl text-blue border-b-2 border-gray-200 w-full text-center pb-2">Votre panier</h1>
+        <div className="absolute border-4 border-brown top-40 left-1/3 h-auto w-1/3 bg-pink rounded-md flex flex-col justify-between items-center py-2">
+            <h1 className="text-3xl text-gray-100 border-b-2 border-gray-200 w-full text-center pb-2">Votre panier</h1>
             <div className="flex flex-col items-center py-2 pl-8 w-full space-y-1">
             {props.cart.map((item, index) => (
                 <div key={index} className="flex flex-row w-1/2">
@@ -17,7 +17,7 @@ function Command(props) {
                 <p className="text-lg">Total: {props.price.toLocaleString('fr-FR', {style: 'currency', currency: 'EUR'})}</p>
             </div>
             </div>
-            <h1 className="text-3xl text-blue border-b-2 border-gray-200 w-full text-center pb-2">Vos informations de livraison</h1>
+            <h1 className="text-3xl text-gray-100 border-b-2 border-gray-200 w-full text-center pb-2">Vos informations de livraison</h1>
             <form className="flex flex-col justify-between px-4 w-full my-2 space-y-1 pb-4 border-b-2 border-white">
                 <div className="flex flex-row w-full justify-between space-x-4">
                     <div className="flex flex-col w-1/2">
@@ -46,7 +46,7 @@ function Command(props) {
                 <button className="border-2 border-gray-100 hover:border-gray-400 text-white font-bold py-2 px-4 rounded" onClick={props.cancelCommand}>
                     Annuler
                 </button>
-                <button className="bg-blue border-2 border-blue hover:border-white text-white font-bold py-2 px-4 rounded">
+                <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded">
                     Commander
                 </button>
             </div>
