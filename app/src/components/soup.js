@@ -44,7 +44,7 @@ class Soup extends React.Component {
                 </div>
     
                 <div className="flex flex-row">
-                    <img className="h-24 w-24 rounded-full border-2 border-white fit" src={`soup/${soup.id+1}.png`} />
+                    <img className="h-24 w-24 rounded-full border-2 border-white fit" src={`soup/${soup.id}.png`} />
                     {!details && <div id={`ingredients-${soup.id}`} className="ml-2 pl-2 border-l-2 border-white">
                         <div>
                             <p>Coucou c'est les ingrédients</p>

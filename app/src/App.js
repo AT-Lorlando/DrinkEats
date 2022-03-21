@@ -2,6 +2,8 @@ import React from 'react';
 import Cart from './components/cart.js';
 import Soup, {soup} from './components/soup.js';
 import Command from './components/command.js';
+import axios from 'axios';
+
 
 class App extends React.Component {
    
@@ -101,24 +103,25 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("Mounted")
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json()
-      .then((json) => {
-        json = [
-          new soup('Soupe au chou', 0) ,
-          new soup('Soupe Miso', 1) ,
-          new soup('Soupe champignon', 2),
-          new soup('Soupe au poivron', 3),
-          new soup('Soupe au poulet', 4),
-          new soup('Soupe au poisson', 5),
-          new soup('Soupe aux légumes', 6),
-          new soup('Soupe aux tomates', 7),
-        ]
+    axios.get("http://localhost:3000/api/soup/", {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        'Accept': 'application/json',
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      }
+    })
+      .then((res) => {
+        let fetchedSoups = []
+        res.data.soups.forEach(s => {
+          fetchedSoups.push(new soup(s.title, s._id))
+        })
         this.setState({
-          Soups: json,
+          Soups: fetchedSoups,
           DataisLoaded: true
-        })          
-      }))
+        })      
+      })
+
   }
 
 
