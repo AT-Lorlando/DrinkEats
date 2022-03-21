@@ -14,5 +14,63 @@
     "price":1,
     "quantity":1,
     "__v":0
+},{
+    "_id":{"$oid":"6237ca47068f766aca0e53ee"},
+    "title":"Soupe champignon",
+    "description":"Description 1",
+    "details":"Details 1",
+    "price":3,
+    "quantity":1,
+    "__v":0
+},{
+    "_id": {
+        "$oid": "62381a20e8714681349af29f"
+    },
+    "title": "Soupe au poivron",
+    "description": "Description 1",
+    "details": "Details 1",
+    "price": 3,
+    "quantity": 1,
+    "__v": 0
+},{
+    "_id": {
+        "$oid": "623819c4e8714681349af297"
+    },
+    "title": "Soupe au poulet",
+    "description": "Description 1",
+    "details": "Details 1",
+    "price": 3,
+    "quantity": 1,
+    "__v": 0
+},{
+    "_id": {
+        "$oid": "62381a07e8714681349af299"
+    },
+    "title": "Soupe au poisson",
+    "description": "Description 1",
+    "details": "Details 1",
+    "price": 3,
+    "quantity": 1,
+    "__v": 0
+},{
+    "_id": {
+        "$oid": "62381a11e8714681349af29b"
+    },
+    "title": "Soupe aux légumes",
+    "description": "Description 1",
+    "details": "Details 1",
+    "price": 3,
+    "quantity": 1,
+    "__v": 0
+},{
+    "_id": {
+        "$oid": "62381a17e8714681349af29d"
+    },
+    "title": "Soupe aux tomates",
+    "description": "Description 1",
+    "details": "Details 1",
+    "price": 3,
+    "quantity": 1,
+    "__v": 0
 }
 ]

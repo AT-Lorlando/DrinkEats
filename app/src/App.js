@@ -23,9 +23,9 @@ class App extends React.Component {
       this.resetCart = this.resetCart.bind(this);
   }
 
-  addToCart = (soup, quantity) => {
+  addToCart = (id, quantity) => {
     quantity = quantity ? quantity:1;
-    soup = this.state.Soups[soup];
+    let soup = this.state.Soups.find(soup => soup.id === id)
     // console.log('Adding', quantity ? quantity:1, soup.name, 'in cart');
   
     if (this.state.cart.items.find(item => item.id === soup.id)) {
@@ -58,14 +58,7 @@ class App extends React.Component {
         }
       }));
     }
-    // this.state.cart.q += quantity;
-    // this.state.cart.t += quantity * soup.price;
-    // this.setState((state) => ({
-    //   totalQuantity: state.totalQuantity + quantity,
-    //   totalPrice: state.totalPrice + quantity*soup.price
-    // }))
-    console.log(this.state.cart)
-
+    // console.log(this.state.cart)
   }
 
     
@@ -102,7 +95,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Mounted")
+    console.log("Fetching")
     axios.get("http://localhost:3000/api/soup/", {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -116,6 +109,7 @@ class App extends React.Component {
         res.data.soups.forEach(s => {
           fetchedSoups.push(new soup(s.title, s._id))
         })
+        console.log(fetchedSoups)
         this.setState({
           Soups: fetchedSoups,
           DataisLoaded: true

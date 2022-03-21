@@ -7,7 +7,7 @@ router.use(express.json());
 const soupCtrl = require('../controllers/soup');
 
 router.get('/', soupCtrl.getAllSoups);
-router.post('/', auth, soupCtrl.createSoup);
+router.post('/', soupCtrl.createSoup);
 router.get('/:id', soupCtrl.getOneSoup);
 router.put('/:id', soupCtrl.modifySoup);
 router.delete('/:id', soupCtrl.deleteSoup);
