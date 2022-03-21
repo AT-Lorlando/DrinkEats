@@ -1,7 +1,6 @@
 # DrinkEats
 
-```
-npm i
+Application de livraison de soupe.
 
-npm run dev
-```
+Front: React
+Back: Express + MongoDB
