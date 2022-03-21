@@ -61,5 +61,3 @@ Le créateur de la commande est celui contenu dans la session
 POST /orders/:id/validate permet à l’administrateur de valider une commande
 
 DELETE /order/:id/validate permet à l’administrateur d’annuler la validation de la commande
-
-Design de la base de données (en réalité, vous faites du NoSQL mais comme vous utilisez mongoose et donc des schemas, ça ne posera pas de soucis) (je ne suis pas sûr de l’existance de table pivot dans les bdd NoSQL)
