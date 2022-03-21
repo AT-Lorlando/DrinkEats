@@ -2,6 +2,7 @@ import React from 'react';
 import Cart from './components/cart.js';
 import Soup, {soup} from './components/soup.js';
 import Command from './components/command.js';
+import Modal from './components/modal.js';
 import axios from 'axios';
 
 
@@ -15,8 +16,11 @@ class App extends React.Component {
           items: [],
           DataisLoaded: false,
           cart : {q: 0, t: 0, items: []},
-          flagCommand : false,
-          Soups : []
+          modalCommand : false,
+          modalLogin : false,
+          modalSignup : false,
+          Soups : [],
+          token : "",
       };
       this.addToCart = this.addToCart.bind(this);
       this.removeFromCart = this.removeFromCart.bind(this);
@@ -77,7 +81,7 @@ class App extends React.Component {
     }));
     // if (this.state.totalPrice - p*q === 0) {
     //   this.setState({
-    //     flagCommand : true
+    //     modalCommand : true
     //   }) 
     // }
   }
@@ -91,7 +95,7 @@ class App extends React.Component {
   
   showCommand = () => {
     if (this.state.cart.q > 0) {
-      this.setState({flagCommand : true})}
+      this.setState({modalCommand : true})}
   }
 
   componentDidMount() {
@@ -118,10 +122,30 @@ class App extends React.Component {
 
   }
 
+  login = (e) => {
+    // e.preventDefault();
+    // console.log(this.state.token)
+    // axios.post("http://localhost:3000/api/login", {
+    //   headers: {
+    //     "Content-Type": "application/json; charset=utf-8",
+    //     'Accept': 'application/json',
+    //   },
+    //   token: this.state.token
+    // })
+    //   .then((res) => {
+    //     console.log(res)
+    //     if (res.data.token) {
+    //       this.setState({
+    //         token: res.data.token
+    //       })
+    //     }
+    //   })
+  }
+
 
 
   render() {
-      const { DataisLoaded, items, cart, totalQuantity, totalPrice, flagCommand, Soups } = this.state;
+      const { DataisLoaded, cart, totalQuantity, totalPrice, modalCommand, Soups, modalLogin, modalSignup} = this.state;
       
       return (
         <div className="bg-black h-screen w-screen overflow-hidden">
@@ -130,10 +154,10 @@ class App extends React.Component {
               DrinkEats
             </h1>
             <div className="flex flex-row space-x-4"> 
-              <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded">
+              <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalLogin : true})}}>
                 Log in
               </button>
-              <button className="border-2 border-transparent hover:border-green text-white font-bold py-2 px-4 rounded">
+              <button className="border-2 border-transparent hover:border-green text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalSignup : true})}}>
                 Sign in
               </button>
             </div>
@@ -152,13 +176,25 @@ class App extends React.Component {
             showCommand={this.showCommand} 
             resetCart={this.resetCart} 
             removeFromCart={this.removeFromCart}/>
-          {flagCommand && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
+          {modalCommand && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
             <Command 
             cart={cart} 
             quantity={totalQuantity} 
             price={totalPrice} 
-            cancelCommand={() => {this.setState({flagCommand : false})}} 
+            cancelCommand={() => {this.setState({modalCommand : false})}} 
             removeFromCart={this.removeFromCart}/>
+            </div>}
+            {modalLogin && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
+            <Modal 
+            type={"login"}
+            cancel={() => {this.setState({modalLogin : false})}}
+            />
+            </div>}
+            {modalSignup && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
+            <Modal 
+            type={"signup"}
+            cancel={() => {this.setState({modalSignup : false})}}
+            />
             </div>}
         </div>
       )
