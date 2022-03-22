@@ -6,11 +6,45 @@ const Soup = require('../models/soup');
 exports.createOrder = (req, res, next) => {
     Soup.find({ _id: { $in: req.body.products.map(product => product.soup) } })
         .then(soups => {
-            // TODO: Check if soups are available, __with ID__ and quantity            
             const checkSoup = soups.map(soup => {
                 const product = req.body.products.find(product => product.soup.toString() === soup._id.toString());
                 return {soup: soup._id, quantity: product.quantity, price: soup.price};
             });
+            // console.log(checkSoup);
+            checkSoup.forEach(orderedSoup => {
+                const product = soups.find(soup => soup._id.toString() === orderedSoup.soup.toString());
+                if (orderedSoup.quantity > product.quantity) {
+                    res.status(400).json({
+                        error: `Not enough quantity for ${product.title}, only ${product.quantity} left`,
+                        quantity: product.quantity
+                    });
+                } else {
+                    product.quantity -= orderedSoup.quantity;
+                    Soup.updateOne({ _id: product._id }, { $set: { quantity: product.quantity } })
+                        .then(() => {
+                            console.log('quantity updated', product._id, product.quantity);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                }
+            });
+            // Tried with UpdateMany but it didn't work, so I had to do it with UpdateOne
+
+            // Soup.updateMany(
+            //     { _id: { $in: checkSoup.map(soup => soup.soup) } }, 
+            //     {$set: checkSoup.map(soup => {
+            //             console.log('soup', soup);
+            //             const product = req.body.products.find(product => product.soup.toString() === soup.soup.toString());
+            //             return {quantity: soup.quantity - product.quantity};
+            //         }
+            //     )}
+            // )
+
+                // {$set: { quantity: 0 }})
+                // {$set: {quantity}})
+                // .then(() => {console.log('Updated soups', checkSoup)})
+                // .catch(error => {console.log('Error updating soups', error)});
             const order = new Order({
                 userId: req.body.userId,
                 products: checkSoup,
@@ -28,7 +62,7 @@ exports.createOrder = (req, res, next) => {
             order.save().then(
                 (createdOrder) => {
                 console.log('Order created successfully!');
-                console.log(order);
+                // console.log(order);
                 res.status(201).json(createdOrder);
                 }
             ).catch(

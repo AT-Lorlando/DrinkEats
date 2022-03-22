@@ -4,7 +4,7 @@
     "description":"Description 1",
     "details":"Details 1",
     "price":1,
-    "quantity":1,
+    "quantity":100,
     "__v":0
 },{
     "_id":{"$oid":"6237c574c4c9937497a05912"},
@@ -12,7 +12,7 @@
     "description":"Description 1",
     "details":"Details 1",
     "price":1,
-    "quantity":1,
+    "quantity":100,
     "__v":0
 },{
     "_id":{"$oid":"6237ca47068f766aca0e53ee"},
@@ -20,7 +20,7 @@
     "description":"Description 1",
     "details":"Details 1",
     "price":3,
-    "quantity":1,
+    "quantity":100,
     "__v":0
 },{
     "_id": {
@@ -30,7 +30,7 @@
     "description": "Description 1",
     "details": "Details 1",
     "price": 3,
-    "quantity": 1,
+    "quantity":100,
     "__v": 0
 },{
     "_id": {
@@ -40,7 +40,7 @@
     "description": "Description 1",
     "details": "Details 1",
     "price": 3,
-    "quantity": 1,
+    "quantity":100,
     "__v": 0
 },{
     "_id": {
@@ -50,7 +50,7 @@
     "description": "Description 1",
     "details": "Details 1",
     "price": 3,
-    "quantity": 1,
+    "quantity":100,
     "__v": 0
 },{
     "_id": {
@@ -60,7 +60,7 @@
     "description": "Description 1",
     "details": "Details 1",
     "price": 3,
-    "quantity": 1,
+    "quantity":100,
     "__v": 0
 },{
     "_id": {
@@ -70,7 +70,7 @@
     "description": "Description 1",
     "details": "Details 1",
     "price": 3,
-    "quantity": 1,
+    "quantity":100,
     "__v": 0
 }
 ]
