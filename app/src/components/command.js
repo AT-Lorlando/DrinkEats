@@ -25,10 +25,11 @@ class Command extends React.Component {
                 command.order.push({name: item.name, id: item.id, quantity: item.quantity})
             })
             command.client = 6541;
-            command.address = document.getElementById('address').value + ' ' + document.getElementById('postalCode').value + ' ' + document.getElementById('city').value
+            command.address = document.getElementById('address_number').value + ' '+document.getElementById('address_street').value + ' ' + document.getElementById('postalCode').value + ' ' + document.getElementById('city').value
             command.total = this.props.price;
             console.log(command)
-            alert("Commande confirmée !");
+            this.props.sendCommand(command);
+            // alert("Commande confirmée !");
         } else {
             alert("Veuillez remplir tous les champs");
         }

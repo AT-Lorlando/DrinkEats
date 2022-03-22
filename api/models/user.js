@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId, required: false }, // Primary key
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },

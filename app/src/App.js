@@ -5,6 +5,8 @@ import Command from './components/command.js';
 import Modal from './components/modal.js';
 import axios from 'axios';
 
+const url = 'http://176.128.9.92:8008'
+
 class App extends React.Component {
    
   // Constructor 
@@ -27,6 +29,7 @@ class App extends React.Component {
       this.resetCart = this.resetCart.bind(this);
       this.login = this.login.bind(this);
       this.signup = this.signup.bind(this);
+      this.sendCommand = this.sendCommand.bind(this);
   }
 
   addToCart = (id, quantity) => {
@@ -102,7 +105,7 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("Fetching")
-    axios.get("http://localhost:3000/api/soup/", {
+    axios.get(`${url}/api/soup/`, {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         'Accept': 'application/json',
@@ -132,7 +135,7 @@ class App extends React.Component {
       mail = param.email;
       password = param.password;
       console.log('login with', mail, password)
-      axios.post("http://localhost:3000/api/auth/login", {
+      axios.post(`${url}/api/auth/login`, {
           email: mail,
           password: password
         })
@@ -151,7 +154,7 @@ class App extends React.Component {
       mail = e.target.elements.mail.value;
       password = e.target.elements.password.value;
       console.log('login with', mail, password)
-      axios.post("http://localhost:3000/api/auth/login", {
+      axios.post(`${url}/api/auth/login`, {
         email: mail,
         password: password
       })
@@ -198,7 +201,7 @@ class App extends React.Component {
     }
     console.log("Sign up", user)
     console.log(this.state.token)
-    axios.post("http://localhost:3000/api/auth/signup", {
+    axios.post(`${url}/api/auth/signup`, {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         'Accept': 'application/json',
@@ -226,10 +229,31 @@ class App extends React.Component {
     })
   }
 
-
+  sendCommand = (order) => {
+    console.log(order)
+    axios.post(`${url}/api/order/`, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        'Accept': 'application/json',
+      },
+      token: this.state.token,
+      userId: this.state.user.id,
+      order: order
+    })
+    .then((res) => {
+      console.log(res.data)
+      this.setState({
+        modalCommand : false,
+        cart: {q: 0, t: 0, items: []}
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   render() {
-      const { DataisLoaded, cart, totalQuantity, totalPrice, modalCommand, Soups, modalLogin, modalSignup} = this.state;
+      const { cart, totalQuantity, totalPrice, modalCommand, Soups, modalLogin, modalSignup} = this.state;
       
       return (
         <div className="bg-black h-screen w-screen overflow-hidden">
@@ -245,7 +269,7 @@ class App extends React.Component {
                 Sign in
               </button>
             </div>}
-            {this.state.token != "" && <div className="flex flex-row space-x-4"> 
+            {this.state.token !== "" && <div className="flex flex-row space-x-4"> 
               <span className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalLogin : true})}}>
                 {this.state.user.firstname}
               </span>
@@ -276,7 +300,8 @@ class App extends React.Component {
             price={totalPrice} 
             cancelCommand={() => {this.setState({modalCommand : false})}} 
             removeFromCart={this.removeFromCart}
-            user={this.state.user}/>
+            user={this.state.user}
+            sendCommand={this.sendCommand}/>
             </div>}
             {modalLogin && <div className="absolute inset-0  h-screen w-screen bg-black bg-opacity-40">
             <Modal 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const soupSchema = mongoose.Schema({
+const soupSchema = new mongoose.Schema({
     // Primary key
     id: { type: mongoose.Schema.Types.ObjectId, required: false }, // Primary key
     title: { type: String, required: true }, // Unique key

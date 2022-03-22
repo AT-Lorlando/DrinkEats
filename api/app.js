@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const soupRoutes = require('./routes/soup');
 const userRoutes = require('./routes/user');
+const orderRoutes = require('./routes/order');
 
 mongoose.connect(MONGO_LINK,{useNewUrlParser: true,useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 });
 app.use('/api/soup', soupRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api/order', orderRoutes);
   
 
 module.exports = app;
