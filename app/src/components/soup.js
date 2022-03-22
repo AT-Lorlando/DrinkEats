@@ -2,11 +2,14 @@ import React from 'react'
 import Select from 'react-select'
 
 export class soup {
-    constructor(name, id) {
-      this.name = name;
-      this.id = id
-      this.ingredients = "Tomates,Boeuf,Poulet,Citron";
-      this.price = Math.floor(Math.random() * (3) + 8) - 0.01;
+    constructor(name, id, description, details, price) {
+        this.name = name;
+        this.id = id
+        this.description = description
+        this.details = details
+        this.ingredients = "Tomates,Boeuf,Poulet,Citron";
+        this.price = price
+        console.log(this);
     }
 }
 
@@ -55,7 +58,7 @@ class Soup extends React.Component {
                     {details && <div id={`details-${soup.id}`} className="ml-2 pl-2 border-l-2 border-white">
                         <div>
                             <p>Coucou c'est les détails</p>
-                            {'Je sais pas'}
+                            {soup.details}
                         </div>
                     </div>}
                 </div>
