@@ -229,17 +229,23 @@ class App extends React.Component {
     })
   }
 
-  sendCommand = (order) => {
-    console.log(order)
+  sendCommand = (command) => {
+    console.log("Send command")
+    console.log(command)
     axios.post(`${url}/api/order/`, {
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        'Accept': 'application/json',
-      },
-      token: this.state.token,
       userId: this.state.user.id,
-      order: order
-    })
+      products: command.items,
+      address_number: command.address_number,
+      address_street: command.address_street,
+      address_city: command.address_city,
+      address_zip: command.address_zip,
+      phone: command.phone
+    }, {
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+        "Content-Type": "application/json; charset=utf-8",
+        'Accept': 'application/json'
+      }})
     .then((res) => {
       console.log(res.data)
       this.setState({

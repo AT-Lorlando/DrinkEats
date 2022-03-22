@@ -16,5 +16,6 @@ module.exports = (req, res, next) => {
     res.status(401).json({
       error: "Vous n'êtes pas authentifié !"
     });
+    console.log('Invalid token', req.headers);
   }
 };

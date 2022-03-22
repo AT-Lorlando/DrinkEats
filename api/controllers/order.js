@@ -4,6 +4,7 @@ const Order = require('../models/order');
 const Soup = require('../models/soup');
 
 exports.createOrder = (req, res, next) => {
+    console.log(req.body.products);
     Soup.find({ _id: { $in: req.body.products.map(product => product.soup) } })
         .then(soups => {
             const checkSoup = soups.map(soup => {

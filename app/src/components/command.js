@@ -16,18 +16,17 @@ class Command extends React.Component {
         }
         if (valid) {
             let command = {
-                order: [],
-                client: 0,
-                address: '',
-                total: 0
+                items: [],
             }
             this.props.cart.items.forEach(item => {
-                command.order.push({name: item.name, id: item.id, quantity: item.quantity})
+                command.items.push({soup: item.id, quantity: item.quantity, price: item.price})
             })
-            command.client = 6541;
-            command.address = document.getElementById('address_number').value + ' '+document.getElementById('address_street').value + ' ' + document.getElementById('postalCode').value + ' ' + document.getElementById('city').value
-            command.total = this.props.price;
-            console.log(command)
+            // command.client = ;
+            command.address_number= document.getElementById('address_number').value
+            command.address_street= document.getElementById('address_street').value
+            command.address_city= document.getElementById('city').value
+            command.address_zip = document.getElementById('postalCode').value
+            command.phone = document.getElementById('phone').value
             this.props.sendCommand(command);
             // alert("Commande confirmée !");
         } else {
