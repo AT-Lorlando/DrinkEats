@@ -2,28 +2,27 @@ import React from 'react'
 import Select from 'react-select'
 
 export class soup {
-    constructor(name, id, description, details, price) {
+    constructor(name, id, description, details, price, quantity) {
         this.name = name;
         this.id = id
         this.description = description
         this.details = details
         this.ingredients = "Tomates,Boeuf,Poulet,Citron";
         this.price = price
-        console.log(this);
+        // Not the best answer but still better than nothing
+        this.quantity = quantity > 10 ? 10 : quantity // default quantity;
+        // this.quantity = quantity// default quantity;
     }
 }
 
-const options = []
-for(let i=1; i<=10; i++) { 
-    options.push({value: i, label: `${i}`})
-} 
+// const options = []
 
 class Soup extends React.Component {
-
+    
     // Constructor 
     constructor(props) {
         super(props);
-
+        
         this.state = {
             selectedOption: 1,
             details: false,
@@ -32,13 +31,20 @@ class Soup extends React.Component {
         };
     }
 
+    
+    
     handleChange = (selectedOption) => {
         this.setState({ selectedOption });
-      };
-
+    };
+    
     render() {       
         const { selectedOption, details, soup, ingredients } = this.state;
         
+        const options = []
+        for(let i=1; i<=soup.quantity; i++) { 
+            options.push({value: i, label: `${i}`})
+        } 
+
         return (
             <div className="rounded-xl border-2 border-white px-4 pt-2 flex flex-col justify-around bg-black bg-opacity-5">
                 <div className="w-full flex flex-row justify-between px-2">
@@ -47,7 +53,7 @@ class Soup extends React.Component {
                 </div>
     
                 <div className="flex flex-row">
-                    <img className="h-24 w-24 rounded-full border-2 border-white fit" src={`soup/${soup.id}.png`} />
+                    <img className="h-24 w-24 rounded-full border-2 border-white fit" src={`soup/${soup.id}.png`} alt="Soup"/>
                     {!details && <div id={`ingredients-${soup.id}`} className="ml-2 pl-2 border-l-2 border-white">
                         <div>
                             <p>Coucou c'est les ingrédients</p>

@@ -116,7 +116,7 @@ class App extends React.Component {
       .then((res) => {
         let fetchedSoups = []
         res.data.soups.forEach(s => {
-          fetchedSoups.push(new soup(s.title, s._id, s.description, s.details, s.price))
+          fetchedSoups.push(new soup(s.title, s._id, s.description, s.details, s.price, s.quantity))
         })
         console.log(fetchedSoups)
         this.setState({

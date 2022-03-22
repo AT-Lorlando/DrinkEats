@@ -8,7 +8,7 @@ class Command extends React.Component {
         const inputs = form.getElementsByTagName('input');
         let valid = true;
         for (let i = 0; i < inputs.length; i++) {
-            if (inputs[i].value == '') {
+            if (inputs[i].value === '') {
                 console.log(inputs[i].value);
                 inputs[i].className += 'text-red-500 placeholder-red-500';
                 valid = false;

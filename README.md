@@ -13,6 +13,7 @@ Back: Express + MongoDB
 ### Command:
 * Ajout d'une quantité maximale d'un produit à envoyer au front, pour éviter que la commande ne dépasse la quantité disponible.
 * Ajout d'un fonctionnement de panier par cookie
+* Ajout d'un fonctionnement de session par cookie
 
 ### Front:
 * Ajout d'une recherche de produit par mot clé
@@ -25,6 +26,4 @@ Back: Express + MongoDB
 * Ajout d'un système de validation de commande pour les admins (panelAdmin)
 
 ### Back:
-* Ajouter le système de quantité de produit disponible
-* Check soup pour savoir si le produit est disponible
 
