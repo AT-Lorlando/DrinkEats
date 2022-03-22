@@ -20,6 +20,7 @@ class App extends React.Component {
           modalSignup : false,
           Soups : [],
           token : "",
+          user : {},
       };
       this.addToCart = this.addToCart.bind(this);
       this.removeFromCart = this.removeFromCart.bind(this);
@@ -127,6 +128,7 @@ class App extends React.Component {
     e.preventDefault();
     let mail, password;
     if (param.email && param.password) {
+      let user = param.user
       mail = param.email;
       password = param.password;
       console.log('login with', mail, password)
@@ -136,10 +138,11 @@ class App extends React.Component {
         })
         .then((res) => {
           console.log(res.data)
+          user.id = res.data.userId
           if (res.data.token) {
             this.setState({
               token: res.data.token,
-              modalLogin : false
+              user: user
             })
             console.log("Loged in, token: ", this.state.token)
           }
@@ -157,7 +160,18 @@ class App extends React.Component {
         if (res.data.token) {
           this.setState({
             token: res.data.token,
-            modalLogin : false
+            modalLogin : false,
+            user : {
+              id: res.data.userId,
+              firstname: res.data.first_name,
+              lastname: res.data.last_name,
+              email: res.data.email,
+              address_number: res.data.address_number,
+              address_street: res.data.address_street,
+              address_city: res.data.address_city,
+              address_zip: res.data.address_zip,
+              phone: res.data.phone
+            }
           })
           console.log("Loged in, token: ", this.state.token)
         }
@@ -168,29 +182,21 @@ class App extends React.Component {
     }
   }
 
-  // console.log("Log in", mail, password)
-  //   console.log(this.state.token)
-  //   axios.post("http://localhost:3000/api/login", {
-  //     headers: {
-  //       "Content-Type": "application/json; charset=utf-8",
-  //       'Accept': 'application/json',
-  //     },
-  //     token: this.state.token
-  //   })
-  //     .then((res) => {
-  //       console.log(res)
-  //       if (res.data.token) {
-  //         this.setState({
-  //           token: res.data.token
-  //         })
-  //       }
-  //     })
-
   signup = (e) => {
     e.preventDefault();
-    let mail = e.target.elements.mail.value;
-    let password = e.target.elements.password.value;
-    console.log("Sign up", mail, password)
+    let user = {
+      id: '',
+      firstname: e.target.elements.firstname.value,
+      lastname: e.target.elements.name.value,
+      email: e.target.elements.mail.value,
+      password: e.target.elements.password.value,
+      address_number: e.target.elements.address_number.value,
+      address_street: e.target.elements.address_street.value,
+      address_city: e.target.elements.address_city.value,
+      address_zip: e.target.elements.address_zip.value,
+      phone: e.target.elements.phone.value,
+    }
+    console.log("Sign up", user)
     console.log(this.state.token)
     axios.post("http://localhost:3000/api/auth/signup", {
       headers: {
@@ -198,12 +204,22 @@ class App extends React.Component {
         'Accept': 'application/json',
       },
       token: this.state.token,
-      email: mail,
-      password: password
+      email: user.email,
+      password: user.password,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      address_number: user.address_number,
+      address_street: user.address_street,
+      address_city: user.address_city,
+      address_zip: user.address_zip,
+      phone: user.phone
     })
     .then((res) => {
       console.log(res.data)
-      this.login(e, {email: mail, password: password})
+      this.login(e, {email: user.email, password: user.password, user: user})
+      this.setState({
+        modalSignup : false,
+      })
     })
     .catch((err) => {
       console.log(err)
@@ -221,14 +237,22 @@ class App extends React.Component {
             <h1 className="text-4xl">
               DrinkEats
             </h1>
-            <div className="flex flex-row space-x-4"> 
+            {this.state.token === "" && <div className="flex flex-row space-x-4"> 
               <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalLogin : true})}}>
                 Log in
               </button>
               <button className="border-2 border-transparent hover:border-green text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalSignup : true})}}>
                 Sign in
               </button>
-            </div>
+            </div>}
+            {this.state.token != "" && <div className="flex flex-row space-x-4"> 
+              <span className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalLogin : true})}}>
+                {this.state.user.firstname}
+              </span>
+              <button className="border-2 border-transparent hover:border-green text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({token : "", user: {}})}}>
+                Log out
+              </button>
+            </div>}
           </header>
     
           <div className="h-full">
@@ -243,16 +267,18 @@ class App extends React.Component {
           <Cart cart={this.state.cart} 
             showCommand={this.showCommand} 
             resetCart={this.resetCart} 
-            removeFromCart={this.removeFromCart}/>
+            removeFromCart={this.removeFromCart}
+            user={this.state.user}/>
           {modalCommand && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
             <Command 
             cart={cart} 
             quantity={totalQuantity} 
             price={totalPrice} 
             cancelCommand={() => {this.setState({modalCommand : false})}} 
-            removeFromCart={this.removeFromCart}/>
+            removeFromCart={this.removeFromCart}
+            user={this.state.user}/>
             </div>}
-            {modalLogin && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
+            {modalLogin && <div className="absolute inset-0  h-screen w-screen bg-black bg-opacity-40">
             <Modal 
             type={"login"}
             cancel={() => {this.setState({modalLogin : false})}}

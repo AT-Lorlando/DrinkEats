@@ -1,8 +1,7 @@
 import React from 'react'
 class Command extends React.Component {
 
-    // Constructor 
-
+    // Constructor
 
     confirm = () => {
         const form = document.getElementById('commandForm');
@@ -57,25 +56,33 @@ class Command extends React.Component {
                     <div className="flex flex-row w-full justify-between space-x-4">
                         <div className="flex flex-col w-1/2">
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="name">Nom</label>
-                            <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="name" id="name" placeholder="Votre nom" />
+                            <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="name" id="name" placeholder="Votre nom" defaultValue={this.props.user.lastname ? this.props.user.lastname : ""}/>
                         </div>
                         <div className="flex flex-col w-1/2">
                             <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="firstname">Prénom</label>
-                            <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="firstname" id="firstname" placeholder="Votre prénom" />
+                            <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="firstname" id="firstname" placeholder="Votre prénom" defaultValue={this.props.user.firstname ? this.props.user.firstname : ""}/>
                         </div>
                     </div>
                     
-                        <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="address">Adresse</label>
-                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="address" id="address" placeholder="Votre adresse" />
+                    <div className="flex flex-row w-full justify-between space-x-4">
+                                    <div className="flex flex-col w-1/4">
+                                    <label className="text-gray-700 text-sm font-bold mt-2" htmlFor="addressnumber">Numéro de rue</label>
+                                <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="address" id="address_number" placeholder="Numéro de rue" defaultValue={this.props.user.address_number ? this.props.user.address_number : ""}/>
+                                    </div>
+                                    <div className="flex flex-col w-3/4">
+                                    <label className="text-gray-700 text-sm font-bold mt-2" htmlFor="addressname">Adresse</label>
+                                <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="address" id="address_street" placeholder="Votre nom de rue" defaultValue={this.props.user.address_street ? this.props.user.address_street : ""}/>
+                                    </div>
+                                </div>
                     
                         <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="city">Ville</label>
-                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="city" id="city" placeholder="Votre ville" />
+                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="city" id="city" placeholder="Votre ville" defaultValue={this.props.user.address_city ? this.props.user.address_city : ""}/>
                     
                         <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="postalCode">Code postal</label>
-                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="postalCode" id="postalCode" placeholder="Votre code postal" />
+                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="postalCode" id="postalCode" placeholder="Votre code postal" defaultValue={this.props.user.address_zip ? this.props.user.address_zip : ""}/>
                     
                         <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="phone">Téléphone</label>
-                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="phone" id="phone" placeholder="Votre numéro de téléphone" />
+                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="text" name="phone" id="phone" placeholder="Votre numéro de téléphone" defaultValue={this.props.user.phone ? this.props.user.phone : ""}/>
                 </form>
                 <div className="w-full flex flex-row justify-between px-4">
                     <button className="border-2 border-gray-100 hover:border-gray-400 text-white font-bold py-2 px-4 rounded" onClick={this.props.cancelCommand}>

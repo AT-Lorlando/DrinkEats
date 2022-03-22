@@ -30,13 +30,19 @@ class Cart extends React.Component {
                         </div>
                     ))}    
                 </div>
+                {this.props.user.id === undefined && <p disabled className="text-sm text-red-200 font-bold py-2 px-4 rounded" onClick={showCommand}>
+                        Vous devez être connecté pour commander
+                    </p>}
                 <div className="w-full flex flex-row justify-between px-4">
                     <button className="border-2 border-gray-100 hover:border-gray-400 text-white font-bold py-2 px-4 rounded" onClick={resetCart}>
                         Vider
                     </button>
-                    <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={showCommand}>
+                    {this.props.user.id && <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={showCommand}>
                         Commander
-                    </button>
+                    </button>}
+                    {this.props.user.id === undefined && <button disabled className="bg-gray-500 cursor-not-allowed text-white font-bold py-2 px-4 rounded" onClick={showCommand}>
+                        Commander
+                    </button>}
                 </div>
             </div>
         );

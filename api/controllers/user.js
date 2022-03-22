@@ -11,7 +11,14 @@ exports.signup = (req, res, next) => {
         .then(hash => {
         const user = new User({
             email: req.body.email,
-            password: hash
+            password: hash,
+            first_name: req.body.firstname,
+            last_name: req.body.lastname,
+            address_number: req.body.address_number,
+            address_street: req.body.address_street,
+            address_city: req.body.address_city,
+            address_zip: req.body.address_zip,
+            phone: req.body.phone,
         });
         user.save()
             .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
@@ -41,7 +48,15 @@ exports.login = (req, res, next) => {
                 { userId: user._id },
                 RANDOM_TOKEN_SECRET,
                 { expiresIn: '24h' }
-              )
+              ),
+              first_name: user.first_name ? user.first_name : "Anonyme",
+              last_name: user.last_name ? user.last_name : null,
+              email: user.email ? user.email : null,
+              address_number: user.address_number ? user.address_number : null,
+              address_street: user.address_street ? user.address_street : null,
+              address_city: user.address_city ? user.address_city : null,
+              address_zip: user.address_zip ? user.address_zip : null,
+              phone: user.phone ? user.phone : null,
           });
         })
         .catch(error => res.status(500).json({ error }));
