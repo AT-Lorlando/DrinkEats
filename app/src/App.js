@@ -271,15 +271,18 @@ class App extends React.Component {
               <button className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalLogin : true})}}>
                 Log in
               </button>
-              <button className="border-2 border-transparent hover:border-green text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalSignup : true})}}>
+              <button className="border-2 border-transparent hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalSignup : true})}}>
                 Sign in
               </button>
             </div>}
             {this.state.token !== "" && <div className="flex flex-row space-x-4"> 
-              <span className="bg-blue-500 border-2 border-blue-500 hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({modalLogin : true})}}>
+            <button className="border-2 border-transparent hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {console.log("Show command")}}>
+                Mes commandes
+              </button>
+              <span className="bg-blue-500 border-2 border-blue-500 text-white font-bold py-2 px-4 rounded">
                 {this.state.user.firstname}
               </span>
-              <button className="border-2 border-transparent hover:border-green text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({token : "", user: {}})}}>
+              <button className="border-2 border-transparent hover:border-white text-white font-bold py-2 px-4 rounded" onClick={() => {this.setState({token : "", user: {}})}}>
                 Log out
               </button>
             </div>}
