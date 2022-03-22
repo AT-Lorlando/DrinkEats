@@ -5,7 +5,6 @@ import Command from './components/command.js';
 import Modal from './components/modal.js';
 import axios from 'axios';
 
-
 class App extends React.Component {
    
   // Constructor 
@@ -25,6 +24,8 @@ class App extends React.Component {
       this.addToCart = this.addToCart.bind(this);
       this.removeFromCart = this.removeFromCart.bind(this);
       this.resetCart = this.resetCart.bind(this);
+      this.login = this.login.bind(this);
+      this.signup = this.signup.bind(this);
   }
 
   addToCart = (id, quantity) => {
@@ -122,24 +123,91 @@ class App extends React.Component {
 
   }
 
-  login = (e) => {
-    // e.preventDefault();
-    // console.log(this.state.token)
-    // axios.post("http://localhost:3000/api/login", {
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8",
-    //     'Accept': 'application/json',
-    //   },
-    //   token: this.state.token
-    // })
-    //   .then((res) => {
-    //     console.log(res)
-    //     if (res.data.token) {
-    //       this.setState({
-    //         token: res.data.token
-    //       })
-    //     }
-    //   })
+  login = (e, param = {}) => {
+    e.preventDefault();
+    let mail, password;
+    if (param.email && param.password) {
+      mail = param.email;
+      password = param.password;
+      console.log('login with', mail, password)
+      axios.post("http://localhost:3000/api/auth/login", {
+          email: mail,
+          password: password
+        })
+        .then((res) => {
+          console.log(res.data)
+          if (res.data.token) {
+            this.setState({
+              token: res.data.token,
+              modalLogin : false
+            })
+            console.log("Loged in, token: ", this.state.token)
+          }
+        })
+    } else {
+      mail = e.target.elements.mail.value;
+      password = e.target.elements.password.value;
+      console.log('login with', mail, password)
+      axios.post("http://localhost:3000/api/auth/login", {
+        email: mail,
+        password: password
+      })
+      .then((res) => {
+        console.log(res.data)
+        if (res.data.token) {
+          this.setState({
+            token: res.data.token,
+            modalLogin : false
+          })
+          console.log("Loged in, token: ", this.state.token)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  }
+
+  // console.log("Log in", mail, password)
+  //   console.log(this.state.token)
+  //   axios.post("http://localhost:3000/api/login", {
+  //     headers: {
+  //       "Content-Type": "application/json; charset=utf-8",
+  //       'Accept': 'application/json',
+  //     },
+  //     token: this.state.token
+  //   })
+  //     .then((res) => {
+  //       console.log(res)
+  //       if (res.data.token) {
+  //         this.setState({
+  //           token: res.data.token
+  //         })
+  //       }
+  //     })
+
+  signup = (e) => {
+    e.preventDefault();
+    let mail = e.target.elements.mail.value;
+    let password = e.target.elements.password.value;
+    console.log("Sign up", mail, password)
+    console.log(this.state.token)
+    axios.post("http://localhost:3000/api/auth/signup", {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        'Accept': 'application/json',
+      },
+      token: this.state.token,
+      email: mail,
+      password: password
+    })
+    .then((res) => {
+      console.log(res.data)
+      this.login(e, {email: mail, password: password})
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
 
@@ -188,12 +256,14 @@ class App extends React.Component {
             <Modal 
             type={"login"}
             cancel={() => {this.setState({modalLogin : false})}}
+            confirm={this.login}
             />
             </div>}
             {modalSignup && <div className="absolute inset-0 h-screen w-screen bg-black bg-opacity-40">
             <Modal 
             type={"signup"}
             cancel={() => {this.setState({modalSignup : false})}}
+            confirm={this.signup}
             />
             </div>}
         </div>

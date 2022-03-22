@@ -2,9 +2,7 @@ import React from 'react'
 class Command extends React.Component {
 
     // Constructor 
-    constructor(props) {
-        super(props);
-    }
+
 
     confirm = () => {
         const form = document.getElementById('commandForm');

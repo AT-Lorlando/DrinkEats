@@ -8,15 +8,17 @@ class Modal extends React.Component {
         this.state = {
             type: props.type,
             error: null,
+            confirm: props.confirm
         };
     }
 
-    test = () => {
+    test = (e) => {
+        e.preventDefault();
         console.log('test')
     }
 
     render() {       
-        const { error, type } = this.state;
+        const { error, type, confirm } = this.state;
         
         if(type === 'login') {
             return ( 
@@ -31,13 +33,15 @@ class Modal extends React.Component {
                             <div className="my-4 w-full text-center"><h2 className="text-2xl">Se connecter</h2>
                             {error && <h1 className="text-red-500 text-center">Erreur : {{ error }}</h1>}
                             </div>
-                            <form className="flex flex-col w-3/5" onSubmit={this.test}>
-                                <label className="my-2">
-                                    <input type="text" placeholder="Nom d'utilisateur" className="h-10 px-2 w-full rounded-sm  focus:outline-none hover:bg-gray-100 focus:ring-2 focus:ring-indigo-700 dark:focus:border-indigo-700 dark:border-gray-700 dark:bg-gray-800 " />
-                                </label>
-                                <label className="my-2">
-                                    <input type="password" placeholder="Mot de passe" className="h-10 px-2 w-full rounded-sm  focus:outline-none hover:bg-gray-100 focus:ring-2 focus:ring-indigo-700 dark:focus:border-indigo-700 dark:border-gray-700 dark:bg-gray-800 " />
-                                </label>
+                            <form className="flex flex-col w-3/5" onSubmit={confirm}>
+                                <div className="flex flex-col w-full">
+                                    <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="mail">Email</label>
+                                    <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="mail" name="mail" id="mail" placeholder="Votre adresse mail" />
+                                </div>
+                                <div className="flex flex-col w-full">
+                                    <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="password">Mot de pass</label>
+                                    <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="password" name="password" id="password" placeholder="Votre mot de passe" />
+                                </div>
                                 <button type="submit" className="bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 text-white px-8 py-3 my-2 text-sm focus:outline-none focus:ring-2   focus:ring-indigo-600 rounded border shadow">Login</button>
                             </form>
                         </div>
@@ -57,13 +61,15 @@ class Modal extends React.Component {
                             <div className="my-4 w-full text-center"><h2 className="text-2xl">S'inscrire</h2>
                             {error && <h1 className="text-red-500 text-center">Erreur : {{ error }}</h1>}
                             </div>
-                            <form className="flex flex-col w-3/5" onSubmit={this.test}>
-                                <label className="my-2">
-                                    <input type="text" placeholder="Nom d'utilisateur" className="h-10 px-2 w-full rounded-sm  focus:outline-none hover:bg-gray-100 focus:ring-2 focus:ring-indigo-700 dark:focus:border-indigo-700 dark:border-gray-700 dark:bg-gray-800 " />
-                                </label>
-                                <label className="my-2">
-                                    <input type="password" placeholder="Mot de passe" className="h-10 px-2 w-full rounded-sm  focus:outline-none hover:bg-gray-100 focus:ring-2 focus:ring-indigo-700 dark:focus:border-indigo-700 dark:border-gray-700 dark:bg-gray-800 " />
-                                </label>
+                            <form className="flex flex-col w-3/5" onSubmit={confirm}>
+                                <div className="flex flex-col w-full">
+                                    <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="mail">Email</label>
+                                        <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="mail" name="mail" id="mail" placeholder="Votre adresse mail" />
+                                </div>
+                                <div className="flex flex-col w-full">
+                                    <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="password">Mot de pass</label>
+                                    <input className="border-2 border-gray-100 w-full py-1 px-2 rounded" type="password" name="password" id="password" placeholder="Votre mot de passe" />
+                                </div>
                                 <button type="submit" className="bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 text-white px-8 py-3 my-2 text-sm focus:outline-none focus:ring-2   focus:ring-indigo-600 rounded border shadow">Sign in</button>
                             </form>
                         </div>
