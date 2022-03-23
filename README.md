@@ -5,6 +5,31 @@ Application de livraison de soupe.
 Front: React
 Back: Express + MongoDB
 
+## Run the project
+
+Use the token and the url given in the mail to start the project:
+
+Go to /api folder and run the following command:
+
+```
+npm i
+node server
+```
+or 
+```
+npm i
+nodemon server
+```
+
+then go to /app folder and run the following command:
+
+```
+npm i
+npm start
+```
+
+And press y to use another port for the front
+
 ## Todo:
 
 ### Auth:

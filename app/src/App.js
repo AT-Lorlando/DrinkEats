@@ -5,7 +5,7 @@ import Command from './components/command.js';
 import Modal from './components/modal.js';
 import axios from 'axios';
 
-const url = 'http://176.128.9.92:8008'
+const url = 'http://localhost:3000'
 
 class App extends React.Component {
    

@@ -5,6 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+If the back is running, it will ask you to use another port, press y
 
 ### `npm start`
 
