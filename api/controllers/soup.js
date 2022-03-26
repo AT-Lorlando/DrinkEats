@@ -24,15 +24,15 @@ exports.createSoup = (req, res, next) => {
     });
     soup.save().then(
         () => {
-        res.status(201).json({
-            message: 'Soup saved successfully!'
-        });
+            res.status(201).json({
+                message: 'Soup saved successfully!'
+            });
         }
     ).catch(
         (error) => {
-        res.status(400).json({
-            error: error
-        });
+            res.status(400).json({
+                error: error
+            });
         }
     );
 };
@@ -68,16 +68,18 @@ exports.modifySoup = (req, res, next) => {
 exports.deleteSoup = (req, res, next) => {
     Soup.deleteOne({ _id: req.params.id }).then(
         () => {
-        res.status(200).json({ message: 'Soup deleted!' });
+            res.status(200).json({ message: 'Soup deleted!' });
         }
     ).catch(
         (error) => {
-        res.status(400).json({
-            error: error
-        });
+            res.status(400).json({
+                error: error
+            });
         }
     );
 };
+
+// tu peux faire tous tes export en fin de fichier avec module.export
 
 // A post request to /api/soup/ example:
 // {

@@ -1,20 +1,25 @@
 # Back end - DrinkEats
 
 start the project:
+
 ```
 node server.js
 ```
 
 using nodemon
+
 ```
 nodemon server
 ```
 
-Create a .env file in /api folder with the following content:
+Create a .env file in /api folder with the following content: // pas super pratique ce readme en localhost
+
 ```
 MONGO_LINK = 'mongodb+srv://chuya:<pswd>@cluster0.vvtuz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 RANDOM_TOKEN_SECRET = '<token>'
 ```
+
+// manque sûrement la documentation pour remplir la DB car je n'ai aucun produit affiché
 
 `<pswd>` et `<token>` sont a remplacer par les valeurs données dans le mail.
 

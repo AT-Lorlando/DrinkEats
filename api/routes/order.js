@@ -6,7 +6,7 @@ router.use(express.json());
 const orderCtrl = require('../controllers/order');
 
 router.get('/', orderCtrl.getAllOrders);
-router.post('/', auth, orderCtrl.createOrder);
+router.post('/', auth, orderCtrl.createOrder); // bien l'utilisation du middleware
 // router.get('/:id', orderCtrl.getOneOrder);
 // router.delete('/:id', orderCtrl.deleteOrder);
 

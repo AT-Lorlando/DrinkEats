@@ -13,9 +13,11 @@ const orderSchema = new mongoose.Schema({
     products: [{
         soup: {
             type: mongoose.Schema.Types.ObjectId, // Foreign key
-            ref: 'Soup'},
+            ref: 'Soup'
+        },
         quantity: { type: Number, required: true },
-        _id: false}],
+        _id: false
+    }],
     total: { type: Number, required: true },
     status: { type: String, required: true },
     // createdAt: { type: Date, required: false },
@@ -27,6 +29,6 @@ const orderSchema = new mongoose.Schema({
     phone: { type: Number, required: true },
 }, {
     timestamps: true,
-    });
+});
 
 module.exports = mongoose.model('Order', orderSchema);
