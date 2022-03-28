@@ -9,7 +9,7 @@ exports.createOrder = (req, res, next) => {
         .then(soups => {
             const checkSoup = soups.map(soup => {
                 const product = req.body.products.find(product => product.soup.toString() === soup._id.toString());
-                return {soup: soup._id, quantity: product.quantity, price: soup.price};
+                return { soup: soup._id, quantity: product.quantity, price: soup.price };
             });
             // console.log(checkSoup);
             checkSoup.forEach(orderedSoup => {
@@ -28,7 +28,7 @@ exports.createOrder = (req, res, next) => {
                         .catch(error => {
                             console.log(error);
                         });
-                }
+                } // il y a un probleme ici, tu décrementes avant de valider que tous les produits sont disponibles
             });
             // Tried with UpdateMany but it didn't work, so I had to do it with UpdateOne
 
@@ -42,15 +42,15 @@ exports.createOrder = (req, res, next) => {
             //     )}
             // )
 
-                // {$set: { quantity: 0 }})
-                // {$set: {quantity}})
-                // .then(() => {console.log('Updated soups', checkSoup)})
-                // .catch(error => {console.log('Error updating soups', error)});
+            // {$set: { quantity: 0 }})
+            // {$set: {quantity}})
+            // .then(() => {console.log('Updated soups', checkSoup)})
+            // .catch(error => {console.log('Error updating soups', error)});
             const order = new Order({
                 userId: req.body.userId,
                 products: checkSoup,
                 total: checkSoup.reduce((acc, product) => {
-                        return acc + product.price * product.quantity;
+                    return acc + product.price * product.quantity;
                 }, 0),
                 status: 'pending',
                 address_number: req.body.address_number,
@@ -59,21 +59,21 @@ exports.createOrder = (req, res, next) => {
                 address_zip: req.body.address_zip,
                 phone: req.body.phone,
             });
-            
+
             order.save().then(
                 (createdOrder) => {
-                console.log('Order created successfully!');
-                // console.log(order);
-                res.status(201).json(createdOrder);
+                    console.log('Order created successfully!');
+                    // console.log(order);
+                    res.status(201).json(createdOrder);
                 }
             ).catch(
                 (error) => {
-                res.status(400).json({
-                    error: error
-                });
+                    res.status(400).json({
+                        error: error
+                    });
                 }
             );
-    })
+        });
 };
 
 exports.getAllOrders = (req, res, next) => {
@@ -89,6 +89,6 @@ exports.getAllOrders = (req, res, next) => {
                 error: error
             });
         });
-}
+};
 
 
